@@ -62,3 +62,16 @@ li:first-letter {
   position: relative;
   top: -34px;
 }
+
+.weather-temperature .active {
+  color: #000000;
+  cursor: default;
+}
+
+.weather-temperature .active:hover {
+  text-decoration: none;
+}
+
+a {
+  text-decoration: none;
+}
