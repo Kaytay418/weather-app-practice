@@ -1,3 +1,4 @@
+// Format Date Functions //
 function formatDate(timestamp) {
   let date = new Date(timestamp);
   let hours = hours12();
@@ -24,6 +25,43 @@ function formatDate(timestamp) {
   return `${day} ${hours}:${minutes}`;
 }
 
+// Forecast Element Functions //
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let forecastHTML = `<div class="row">`;
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+      <div class="col-2">
+        <div class="weather-forecast-date">${day}</div>
+        <img
+          src="http://openweathermap.org/img/wn/50d@2x.png"
+          alt=""
+          width="36"
+        />
+        <div class="weather-forecast-temp">
+          <span class="high-temp">18°</span>
+          <span class="low-temp">12°</span>
+        </div>
+      </div>`;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
+// Weather Overview Functions (Temperature, Description, City, Date) //
 function displayTemperature(response) {
   let temperatureElement = document.querySelector(`#temperature`);
   temperatureElement.innerHTML = Math.round(response.data.main.temp);
@@ -53,6 +91,7 @@ function displayTemperature(response) {
   fahrenheitTemperature = response.data.main.temp;
 }
 
+// Search Bar Functions //
 function search(city) {
   let apiKey = `6c5702b8e0bdf208e797742914ea7cea`;
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
@@ -66,6 +105,7 @@ function handleSubmit(event) {
   search(cityInputElement.value);
 }
 
+// Temperature Conversion Functions //
 function displayCelsiusTemperature(event) {
   event.preventDefault();
   fahrenheitLink.classList.remove("active");
@@ -82,10 +122,12 @@ function displayFahrenheitTemperature(event) {
   let temperatureElement = document.querySelector("#temperature");
   temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
 }
-let form = document.querySelector("#search-form");
-form.addEventListener("submit", handleSubmit);
 
 let fahrenheitTemperature = null;
+
+// Events and CTA's//
+let form = document.querySelector("#search-form");
+form.addEventListener("submit", handleSubmit);
 
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
 fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
@@ -94,3 +136,4 @@ let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", displayCelsiusTemperature);
 
 search("Seattle");
+displayForecast();
