@@ -61,6 +61,12 @@ function displayForecast() {
   forecastElement.innerHTML = forecastHTML;
 }
 
+function getForecast(coordinates) {
+  let apiKey = `6c5702b8e0bdf208e797742914ea7cea`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}`;
+  axios.get(apiUrl).then(displayForecast);
+}
+
 // Weather Overview Functions (Temperature, Description, City, Date) //
 function displayTemperature(response) {
   let temperatureElement = document.querySelector(`#temperature`);
@@ -87,6 +93,8 @@ function displayTemperature(response) {
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   iconElement.setAttribute("alt", response.data.weather[0].description);
+
+  getForecast(response.data.coord);
 
   fahrenheitTemperature = response.data.main.temp;
 }
@@ -136,4 +144,3 @@ let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", displayCelsiusTemperature);
 
 search("Seattle");
-displayForecast();
