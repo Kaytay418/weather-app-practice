@@ -1,3 +1,6 @@
+// API Key //
+let apiKey = `6c5702b8e0bdf208e797742914ea7cea`;
+
 // Format Date Functions //
 function formatDate(timestamp) {
   let date = new Date(timestamp);
@@ -21,8 +24,27 @@ function formatDate(timestamp) {
     "Friday",
     "Saturday",
   ];
-  let day = days[date.getDay()];
-  return `${day} ${hours}:${minutes}`;
+  let dayOfWeek = days[date.getDay()];
+
+  let months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  let currentMonth = months[date.getMonth()];
+  let currentDay = date.getDate();
+
+  return `${dayOfWeek}, ${currentMonth} ${currentDay} ${hours}:${minutes}`;
 }
 
 function formatDay(timestamp) {
